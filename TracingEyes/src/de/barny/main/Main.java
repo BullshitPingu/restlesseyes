@@ -27,28 +27,30 @@ public class Main {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	createAndShowGUI();
-        		new Thread() {
-            		@Override public void run() {
-            			try {
-            				while (true) {
-            					if (mouse == MouseInfo.getPointerInfo().getLocation()) {
-            						//Thread.sleep(2000);
-            					}
-            					mouse = MouseInfo.getPointerInfo().getLocation();
-            					windowX = frame.getContentPane().getLocationOnScreen().x;
-            					windowY = frame.getContentPane().getLocationOnScreen().y;
-            					frame.getContentPane().repaint();
-            					oB.repaint();
-            					Thread.sleep(20);
-            				}
-            			} catch ( InterruptedException e ) {
-            				e.printStackTrace();
-            			}
-            		}
-            	}.start();
+            	getStarted.start();
             }
         });
 	}
+	
+	static Thread getStarted = new Thread() {
+		@Override public void run() {
+			try {
+				while (true) {
+					if (mouse == MouseInfo.getPointerInfo().getLocation()) {
+						//Thread.sleep(2000);
+					}
+					mouse = MouseInfo.getPointerInfo().getLocation();
+					windowX = frame.getContentPane().getLocationOnScreen().x;
+					windowY = frame.getContentPane().getLocationOnScreen().y;
+					frame.getContentPane().repaint();
+					oB.repaint();
+					Thread.sleep(20);
+				}
+			} catch ( InterruptedException e ) {
+				e.printStackTrace();
+			}
+		}
+	};
 	
 	public static int getEyePos(int distance, char dir) {
 		try {
