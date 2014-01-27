@@ -68,25 +68,34 @@ public class OptButton extends JPanel {
 		JMenuItem abstoßung = new JMenuItem("Abstoßung!");
 		JMenuItem anziehung = new JMenuItem("Anziehung!");
 		JMenuItem eyeAnzahl = new JMenuItem("Augenanzahl!");
-		JMenuItem spaltenAnzahl = new JMenuItem("Spaltenanzahl!");
+		JMenuItem zeilenAnzahl = new JMenuItem("Zeilenanzahl!");
 		JMenuItem eyeTransp = new JMenuItem("Transparenz An/Aus");
-		ActionListener getSpaltenAnzahl = new ActionListener() {
+		ActionListener getZeilenAnzahl = new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String a = JOptionPane.showInputDialog("Wie viele Zeilen willst du denn?");
 				try {
 					int n = Integer.parseInt(a);
-					Main.spaltenAnzahl = n;
-					Main.spalten = n - 1;
-					Main.frame.setSize(1+(Main.augenAnzahl*41), 1+(Main.spaltenAnzahl*41));
+					if (n == 2 && Main.augenAnzahl == 1) {
+						JOptionPane.showMessageDialog(null, "Ein Auge auf 2 Zeilen einzuteilen geht nicht.");
+					} else if (n <= 0) {
+						JOptionPane.showMessageDialog(null, "Um keine Zeilen zu Zeichnen empfehle ich das Programm zu schließen.");
+					} else if (n > Main.augenAnzahl) {
+						JOptionPane.showMessageDialog(null, "Es sind zuwenig Augen für " + n + " Zeilen vorhanden.");
+					} else {
+						Main.zeilenAnzahl = n;
+						Main.zeilen = n - 1;
+						Main.frame.setSize(2+(Main.augenAnzahl*41), 2+(Main.zeilenAnzahl*41));
+						Main.dE.setSize(2+(Main.augenAnzahl*41), 2+(Main.zeilenAnzahl*41));
+					}
 					} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Keine passende Zahl eingegeben.");
 				}
 			}
 			
 		};
-		spaltenAnzahl.addActionListener(getSpaltenAnzahl);
+		zeilenAnzahl.addActionListener(getZeilenAnzahl);
 		ActionListener getEyeAnzahl = new ActionListener() {
 
 			@Override
@@ -94,10 +103,18 @@ public class OptButton extends JPanel {
 				String a = JOptionPane.showInputDialog("Wie viele Augen willst du denn?");
 				try {
 					int n = Integer.parseInt(a);
-					Main.augenAnzahl = n;
-					Main.anzahl = n - 1;
-					Main.frame.setSize(1+(Main.augenAnzahl*41), 2+(Main.spaltenAnzahl*41));
-					Main.dE.setSize(1+(Main.augenAnzahl*41), 2+(Main.spaltenAnzahl*41));
+					if (n == 1 && Main.zeilenAnzahl == 2) {
+						JOptionPane.showMessageDialog(null, "Ein Auge auf 2 Zeilen einzuteilen geht nicht.");
+					} else if (n <= 0) {
+						JOptionPane.showMessageDialog(null, "Um keine Augen zu Zeichnen empfehle ich das Programm zu schließen.");
+					} else if (n < Main.zeilenAnzahl) {
+						JOptionPane.showMessageDialog(null, "Es sind zuviele Zeilen für " + n + " Augen vorhanden.");
+					} else {
+						Main.augenAnzahl = n;
+						Main.anzahl = n - 1;
+						Main.frame.setSize(1+(Main.augenAnzahl*41), 2+(Main.zeilenAnzahl*41));
+						Main.dE.setSize(1+(Main.augenAnzahl*41), 2+(Main.zeilenAnzahl*41));
+					}
 					} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Keine passende Zahl eingegeben.");
 				}
@@ -146,7 +163,7 @@ public class OptButton extends JPanel {
 		};
 		exit.addActionListener(exitAl);
 		jp.add(eyeAnzahl);
-		jp.add(spaltenAnzahl);
+		jp.add(zeilenAnzahl);
 		jp.add(eyeTransp);
 		jp.add(anziehung);
 		jp.add(abstoßung);
