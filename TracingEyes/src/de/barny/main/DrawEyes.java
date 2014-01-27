@@ -91,39 +91,43 @@ public class DrawEyes extends JPanel {
 		g2d2 = (Graphics2D)g;
 		g2d2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d2.setColor(new Color(255, 255, 255, Main.transparency));
-		int augenProSpalte = (int) Main.augenAnzahl/Main.spaltenAnzahl;
-		for (int cSpalte = 0; cSpalte <= Main.spalten; ) {
-			int i = 0;
-			do {
-				g2d2.fillOval(1 + (i*40), 1 + (cSpalte*40), 40, 40);
-				i++;
-				if (i == augenProSpalte) {
-					cSpalte++;
-				}
-			} while (i <= (augenProSpalte-1));
-		}
-		g2d2.setColor(new Color(0, 0, 0, 255));
-		g2d2.setStroke(new BasicStroke(2));
-		for (int cSpalte = 0; cSpalte <= Main.spalten; ) {
-			int i = 0;
-			do {
-				g2d2.drawOval(1 + (i*40), 1 + (cSpalte*40), 40, 40);
-				i++;
-				if (i == augenProSpalte) {
-					cSpalte++;
-				}
-			} while (i <= (augenProSpalte-1));
-		}
-		g2d2.setColor(new Color(0, 0, 0, 255));
-		for (int cSpalte = 0; cSpalte <= Main.spalten; ) {
-			int i = 0;
-			do {
-				g2d2.fillOval((Main.getEyePos(21 + (i*40), 'x')) - 5, (Main.getEyePos(21 + (i*40), 'y')) - 5 + (cSpalte*40), 10, 10);
-				i++;
-				if (i == augenProSpalte) {
-					cSpalte++;
-				}
-			} while (i <= (augenProSpalte-1));
+		try {
+			int augenProSpalte = (int) Main.augenAnzahl/Main.zeilenAnzahl;
+			for (int cSpalte = 0; cSpalte <= Main.zeilen; ) {
+				int i = 0;
+				do {
+					g2d2.fillOval(1 + (i*40), 1 + (cSpalte*40), 40, 40);
+					i++;
+					if (i == augenProSpalte) {
+						cSpalte++;
+					}
+				} while (i <= (augenProSpalte-1));
+			}
+			g2d2.setColor(new Color(0, 0, 0, 255));
+			g2d2.setStroke(new BasicStroke(2));
+			for (int cSpalte = 0; cSpalte <= Main.zeilen; ) {
+				int i = 0;
+				do {
+					g2d2.drawOval(1 + (i*40), 1 + (cSpalte*40), 40, 40);
+					i++;
+					if (i == augenProSpalte) {
+						cSpalte++;
+					}
+				} while (i <= (augenProSpalte-1));
+			}
+			g2d2.setColor(new Color(0, 0, 0, 255));
+			for (int cSpalte = 0; cSpalte <= Main.zeilen; ) {
+				int i = 0;
+				do {
+					g2d2.fillOval((Main.getEyePos(21 + (i*40), 'x')) - 5, (Main.getEyePos(21 + (i*40), 'y')) - 5 + (cSpalte*40), 10, 10);
+					i++;
+					if (i == augenProSpalte) {
+						cSpalte++;
+					}
+				} while (i <= (augenProSpalte-1));
+			}
+		} catch (Exception e) {
+			System.out.println("Fehler beim Zeichnen der Augen.");
 		}
 	}
 	

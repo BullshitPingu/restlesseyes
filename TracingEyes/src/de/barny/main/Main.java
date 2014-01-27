@@ -12,7 +12,7 @@ public class Main {
 	
 	static int transparency = 255;
 	static int augenAnzahl = 2;
-	static int spaltenAnzahl = 1;
+	static int zeilenAnzahl = 1;
 	
 	static JFrame frame;
 	static Point2D mouse;
@@ -21,7 +21,7 @@ public class Main {
 	static Main content = new Main();
 	static int physics = 1; // 1 = Anziehung, -1 = Abstoﬂung
 	static int anzahl = augenAnzahl - 1;
-	static int spalten = spaltenAnzahl - 1;
+	static int zeilen = zeilenAnzahl - 1;
 
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -91,7 +91,7 @@ public class Main {
 		
 		frame.setUndecorated(true);
 		frame.setAlwaysOnTop(true);
-		frame.setSize(1+(augenAnzahl*41), 2+(spaltenAnzahl*41));
+		frame.setSize(2+(augenAnzahl*41), 2+(zeilenAnzahl*41));
 		frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-(frame.getSize().width/2),Toolkit.getDefaultToolkit().getScreenSize().height/2-(frame.getSize().height/2));
 		frame.setVisible(true);
 		frame.setBackground(new Color(0,0,0,0));
@@ -108,7 +108,7 @@ public class Main {
 		oB.setOpaque(true);
 		lp.add(dE, 1);
 		lp.add(oB, 0);
-		dE.setSize(1+(augenAnzahl*41), 2+(spaltenAnzahl*41));
+		dE.setSize(2+(augenAnzahl*41), 2+(zeilenAnzahl*41));
 		oB.setSize(20, 20);
 		container.add(lp);
 	}
