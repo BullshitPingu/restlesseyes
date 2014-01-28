@@ -65,7 +65,7 @@ public class OptButton extends JPanel {
 		addMouseListener(optionsAl);
 	}
 	
-	static private void showMenu(MouseEvent e) {
+	private void showMenu(MouseEvent e) {
 		JPopupMenu jp = new JPopupMenu();
 		JMenuItem exit = new JMenuItem("Beenden");
 		JMenuItem abstoﬂung = new JMenuItem("Abstoﬂung!");
