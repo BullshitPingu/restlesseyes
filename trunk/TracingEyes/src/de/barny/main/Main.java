@@ -13,6 +13,7 @@ public class Main {
 	static int transparency = 255;
 	static int augenAnzahl = 2;
 	static int zeilenAnzahl = 1;
+	static int eyeSize = 40;
 	
 	static JFrame frame;
 	static Point2D mouse;

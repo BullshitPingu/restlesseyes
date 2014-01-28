@@ -32,7 +32,7 @@ public class Options extends JFrame {
 		addOptions(getContentPane());
 		addWindowListener(seeIfFocused);
 		pack();
-		setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-(getSize().width/2), Toolkit.getDefaultToolkit().getScreenSize().height - getHeight());
+		setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-(getSize().width/2), 0);
 	}
 	
 	private void addOptions(Container content) {
