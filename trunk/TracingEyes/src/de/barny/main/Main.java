@@ -28,6 +28,7 @@ public class Main {
             public void run() {
             	createAndShowGUI();
             	getStarted.start();
+            	new Options();
             }
         });
 	}
