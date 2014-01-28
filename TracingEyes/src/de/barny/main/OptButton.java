@@ -26,25 +26,26 @@ public class OptButton extends JPanel {
 	
 	
 	static Color ButtonColor = new Color(0,0,0,128);
+	static Boolean isOver;
 	
 	OptButton() {
 		MouseListener optionsAl = new MouseListener() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				showMenu(e);
+				
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				ButtonColor = new Color(255,0,0,128);
-				
+				ButtonColor = new Color(77,121,255,255);
+				isOver = true;
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
 				ButtonColor = new Color(0,0,0,128);
-				
+				isOver = false;
 			}
 
 			@Override
@@ -55,7 +56,9 @@ public class OptButton extends JPanel {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				
+				if (isOver) {
+					showMenu(e);
+				}
 			}
 			
 		};
