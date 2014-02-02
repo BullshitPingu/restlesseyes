@@ -17,6 +17,9 @@ public class Eye extends JPanel {
 
 	static int anzahl = 0;
 	static int abstand = 2;
+	static int width = Main.eyeSize-Main.eEyeWidthSubtract;
+	
+	static int height = Main.eyeSize;
 	
 	Eye(int i) {
 		setBackground(new Color(0,0,0,0));
@@ -30,14 +33,14 @@ public class Eye extends JPanel {
 			eye.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 			eye.setColor(new Color(255, 255, 255, Main.transparency)); //Farbe des Hintergrunds des Auges
-			eye.fillOval(abstand + i*Main.eyeSize, abstand, (Main.eyeSize), (Main.eyeSize));	//Zeichne den Hintergrund des Auges
+			eye.fillOval(abstand + i*width, abstand, width, height);	//Zeichne den Hintergrund des Auges
 
 			eye.setColor(new Color(0, 0, 0, 255)); //Farbe des Rands des Auges
 			eye.setStroke(new BasicStroke(2)); //Dicke des Randstrichs
-			eye.drawOval(abstand + i*Main.eyeSize, abstand, (Main.eyeSize), (Main.eyeSize)); //Zeichne den Rand des Auges
+			eye.drawOval(abstand + i*width, abstand, width, height); //Zeichne den Rand des Auges
 
 			eye.setColor(new Color(0, 0, 0, 255)); //Farbe der Pupille
-			eye.fillOval((getEyePos(abstand + (Main.eyeSize/2) + (i*Main.eyeSize), 'x')) - Main.pupillenSize/2+1, (getEyePos(abstand + (Main.eyeSize/2) + (i*Main.eyeSize), 'y')) - Main.pupillenSize/2+1, Main.pupillenSize, Main.pupillenSize); //Zeichne die Pupille
+			eye.fillOval((getEyePos(abstand + (width/2) + (i*width), 'x')) - Main.pupillenSize/2+1, (getEyePos(abstand + (width/2) + (i*width), 'y')) - Main.pupillenSize/2+1, Main.pupillenSize, Main.pupillenSize); //Zeichne die Pupille
 		}
 	}
 
@@ -48,12 +51,13 @@ public class Eye extends JPanel {
 			double dY = (Main.mouse.getY() - Main.windowY);
 			double eyePosX = distance;
 			double eyePosY = abstand +(Main.eyeSize/2);
-			if (dist <= ((Main.eyeSize/2)-Main.pupillenSize/2) && Main.physics == 1) {
+			
+			if (dist <= ((width/2)-Main.pupillenSize/2) && Main.physics == 1) {
 				eyePosX = dX;
 				eyePosY = dY;
 			} else {
-				double a = (Main.physics *(((Main.eyeSize/2)-Main.pupillenSize/2)/Main.mouse.distance(Main.windowX+distance, Main.windowY+(abstand + (Main.eyeSize/2))))*((Main.mouse.getX()-(Main.windowX+distance))));
-				double b = (Main.physics *(((Main.eyeSize/2)-Main.pupillenSize/2)/Main.mouse.distance(Main.windowX+distance, Main.windowY+(abstand + (Main.eyeSize/2))))*((Main.mouse.getY()-(Main.windowY+(abstand + (Main.eyeSize/2))))));
+				double a = (Main.physics *(((width/2)-Main.pupillenSize/2)/Main.mouse.distance(Main.windowX+distance, Main.windowY+(abstand + (Main.eyeSize/2))))*((Main.mouse.getX()-(Main.windowX+distance))));
+				double b = (Main.physics *(((height/2)-Main.pupillenSize/2)/Main.mouse.distance(Main.windowX+distance, Main.windowY+(abstand + (Main.eyeSize/2))))*((Main.mouse.getY()-(Main.windowY+(abstand + (Main.eyeSize/2))))));
 				eyePosX += a;
 				eyePosY += b;
 			}
