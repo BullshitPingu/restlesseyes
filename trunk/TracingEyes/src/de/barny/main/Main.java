@@ -15,9 +15,10 @@ import javax.swing.*;
 public class Main {
 	
 	static int transparency = 255;
-	static int eyeSize = 250;
+	static int eyeSize = 60;
 	static int augenAnzahl = 2;
-	static int pupillenSize = 60;
+	static int pupillenSize = 16;
+	static int eEyeWidthSubtract = 5;
 	
 	static JFrame frame;
 	static Point2D mouse;
