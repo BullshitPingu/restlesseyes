@@ -2,7 +2,6 @@ package de.barny.main;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
@@ -31,31 +30,11 @@ public class Main {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	createAndShowGUI();
-            	getStarted.start();
+            	Pupil.drawPupil.start();
             	new Options();
             }
         });
 	}
-	
-	static Thread getStarted = new Thread() {
-		@Override public void run() {
-			try {
-				while (true) {
-					if (mouse == MouseInfo.getPointerInfo().getLocation()) {
-						//Thread.sleep(2000);
-					}
-					mouse = MouseInfo.getPointerInfo().getLocation();
-					windowX = frame.getContentPane().getLocationOnScreen().x;
-					windowY = frame.getContentPane().getLocationOnScreen().y;
-					frame.getContentPane().repaint();
-					oB.repaint();
-					Thread.sleep(20);
-				}
-			} catch ( InterruptedException e ) {
-				e.printStackTrace();
-			}
-		}
-	};
 
 	public static void createAndShowGUI() {
 		frame = new JFrame("Tracing Eyes");
@@ -73,6 +52,7 @@ public class Main {
 	}
 
 	static JPanel dE;
+	static JPanel dP;
 	static JPanel oB;
 	Point iC;
 	
@@ -137,14 +117,18 @@ public class Main {
 	private void addComponents(Container container) {
 		JLayeredPane lp = new JLayeredPane();
 		dE = new Eye(augenAnzahl);
+		dP = new Pupil(augenAnzahl);
 		oB = new OptButton();
-		dE.addMouseListener(eyePanelPressed);
-		dE.addMouseMotionListener(eyePanelMoved);
+		container.addMouseListener(eyePanelPressed);
+		container.addMouseMotionListener(eyePanelMoved);
 		dE.setOpaque(true);
+		dP.setOpaque(true);
 		oB.setOpaque(true);
-		lp.add(dE, 1);
-		lp.add(oB, 0);
+		lp.add(dE, 2);
+		lp.add(dP, 0);
+		lp.add(oB, 1);
 		dE.setSize(4+eyeSize*augenAnzahl, 4+eyeSize);
+		dP.setSize(4+eyeSize*augenAnzahl, 4+eyeSize);
 		oB.setSize(20, 20);
 		container.add(lp);
 	}
