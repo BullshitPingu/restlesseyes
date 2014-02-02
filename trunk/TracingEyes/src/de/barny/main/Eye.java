@@ -27,9 +27,9 @@ public class Eye extends JPanel {
 		anzahl = i;
 	}
 
-	protected void paintComponent(Graphics g) {
+	protected void paintComponent(Graphics gEye) {
 		for (int i = 0; i < anzahl; i++) {
-			Graphics2D eye = (Graphics2D)g;
+			Graphics2D eye = (Graphics2D)gEye;
 			eye.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 			eye.setColor(new Color(255, 255, 255, Main.transparency)); //Farbe des Hintergrunds des Auges
@@ -38,41 +38,7 @@ public class Eye extends JPanel {
 			eye.setColor(new Color(0, 0, 0, 255)); //Farbe des Rands des Auges
 			eye.setStroke(new BasicStroke(2)); //Dicke des Randstrichs
 			eye.drawOval(abstand + i*width, abstand, width, height); //Zeichne den Rand des Auges
-
-			eye.setColor(new Color(0, 0, 0, 255)); //Farbe der Pupille
-			eye.fillOval((getEyePos(abstand + (width/2) + (i*width), 'x')) - Main.pupillenSize/2+1, (getEyePos(abstand + (width/2) + (i*width), 'y')) - Main.pupillenSize/2+1, Main.pupillenSize, Main.pupillenSize); //Zeichne die Pupille
 		}
-	}
-
-	public static int getEyePos(int distance, char dir) {
-		try {
-			double dist = Main.mouse.distance(Main.windowX+distance, abstand + Main.windowY+Main.eyeSize/2);
-			double dX = (Main.mouse.getX() - Main.windowX);
-			double dY = (Main.mouse.getY() - Main.windowY);
-			double eyePosX = distance;
-			double eyePosY = abstand +(Main.eyeSize/2);
-			
-			if (dist <= ((width/2)-Main.pupillenSize/2) && Main.physics == 1) {
-				eyePosX = dX;
-				eyePosY = dY;
-			} else {
-				double a = (Main.physics *(((width/2)-Main.pupillenSize/2)/Main.mouse.distance(Main.windowX+distance, Main.windowY+(abstand + (Main.eyeSize/2))))*((Main.mouse.getX()-(Main.windowX+distance))));
-				double b = (Main.physics *(((height/2)-Main.pupillenSize/2)/Main.mouse.distance(Main.windowX+distance, Main.windowY+(abstand + (Main.eyeSize/2))))*((Main.mouse.getY()-(Main.windowY+(abstand + (Main.eyeSize/2))))));
-				eyePosX += a;
-				eyePosY += b;
-			}
-
-			if (dir == 'x') {
-				return (int) eyePosX;
-			} else if(dir == 'y') {
-				return (int) eyePosY;
-			} else {
-				return (int)0;
-			}
-		} catch (Exception e) {
-			return 0;
-		}
-
 	}
 
 }

@@ -24,6 +24,7 @@ public class OptButton extends JPanel {
 	static Boolean isOver;
 	
 	OptButton() {
+		setBackground(new Color(0,0,0,0));
 		MouseListener optionsAl = new MouseListener() {
 
 			@Override
@@ -34,12 +35,14 @@ public class OptButton extends JPanel {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				ButtonColor = new Color(77,121,255,255);
+				Main.frame.getContentPane().repaint();
 				isOver = true;
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
 				ButtonColor = new Color(0,0,0,128);
+				Main.frame.getContentPane().repaint();
 				isOver = false;
 			}
 
@@ -61,6 +64,7 @@ public class OptButton extends JPanel {
 	}
 	
 	protected void paintComponent(Graphics gButton) {
+		super.paintComponent(gButton);
 		Ellipse2D shapeForOpt = new Ellipse2D.Double(1, 1, 40, 40);
 		Area outline = getOutline(shapeForOpt);
 		Graphics2D optButton = (Graphics2D)gButton;
