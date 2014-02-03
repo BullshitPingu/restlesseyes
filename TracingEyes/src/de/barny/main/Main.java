@@ -14,17 +14,19 @@ import javax.swing.*;
 public class Main {
 	
 	static int transparency = 255;
-	static int eyeSize = 60;
+	static int eyeSize = 50;
 	static int augenAnzahl = 2;
-	static int pupillenSize = 16;
+	static int pupillenSize = eyeSize/4;
 	static int eEyeWidthSubtract = 5;
+	static int physics = 1; // 1 = Anziehung, -1 = Abstoﬂung
 	
 	static JFrame frame;
 	static Point2D mouse;
 	static int windowX;
 	static int windowY;
 	static Main content = new Main();
-	static int physics = 1; // 1 = Anziehung, -1 = Abstoﬂung
+	static int fSizeX = Eye.abstand*2+Eye.width*augenAnzahl;
+	static int fSizeY = Eye.abstand*2+Eye.height;
 
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -45,7 +47,7 @@ public class Main {
 		
 		frame.setUndecorated(true);
 		frame.setAlwaysOnTop(true);
-		frame.setSize(4+(eyeSize*augenAnzahl), 4+eyeSize);
+		frame.setSize(fSizeX, fSizeY);
 		frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-(frame.getSize().width/2),Toolkit.getDefaultToolkit().getScreenSize().height/2-(frame.getSize().height/2));
 		frame.setVisible(true);
 		frame.setBackground(new Color(0,0,0,0));
@@ -54,6 +56,7 @@ public class Main {
 	static JPanel dE;
 	static JPanel dP;
 	static JPanel oB;
+	static JPanel bg;
 	Point iC;
 	
 	MouseListener eyePanelPressed = new MouseListener() {
@@ -116,20 +119,30 @@ public class Main {
 	
 	private void addComponents(Container container) {
 		JLayeredPane lp = new JLayeredPane();
+		
 		dE = new Eye(augenAnzahl);
 		dP = new Pupil(augenAnzahl);
 		oB = new OptButton();
+		bg = new Background();
+		
 		container.addMouseListener(eyePanelPressed);
 		container.addMouseMotionListener(eyePanelMoved);
+		
 		dE.setOpaque(true);
 		dP.setOpaque(true);
 		oB.setOpaque(true);
+		bg.setOpaque(true);
+		
 		lp.add(dE, 2);
 		lp.add(dP, 0);
 		lp.add(oB, 1);
-		dE.setSize(4+eyeSize*augenAnzahl, 4+eyeSize);
-		dP.setSize(4+eyeSize*augenAnzahl, 4+eyeSize);
+		lp.add(bg, 3);
+		
+		dE.setSize(fSizeX, fSizeY);
+		dP.setSize(fSizeX, fSizeY);
 		oB.setSize(20, 20);
+		bg.setSize(fSizeX, fSizeY);
+		
 		container.add(lp);
 	}
 }
