@@ -3,15 +3,19 @@ package de.barny.main;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class Options extends JFrame {
 
@@ -26,42 +30,39 @@ public class Options extends JFrame {
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		setResizable(false);
 		setUndecorated(true);
-		setBackground(new Color(0,0,0,0));
+		setBackground(new Color(128,128,128,200));
 		
 		addOptions(getContentPane());
 		addWindowListener(seeIfFocused);
 		pack();
-		setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-(getSize().width/2), 0);
 	}
 	
 	private void addOptions(Container content) {
 		JPanel optionP = new JPanel(new FlowLayout());
 		optionP.setBackground(new Color(0,0,0,0));
 		
-		Color bColor = new Color(240,240,240);
-		
-		JButton exit = new JButton("Beenden");
+		JButton exit = new JButton("X");
 		exit.setBackground(new Color(255,160,160));
-		JButton abstoﬂung = new JButton("Abstoﬂen");
-		abstoﬂung.setBackground(bColor);
-		JButton anziehung = new JButton("Anziehen");
-		anziehung.setBackground(bColor);
-		JButton eyeTransp = new JButton("Transparent");
-		eyeTransp.setBackground(bColor);
 		
-		ActionListener transpAl = new ActionListener() {
+		JSlider scaleEye = new JSlider(JSlider.HORIZONTAL, 30, 500, 50);
+		
+		ChangeListener scaleEyeAl = new ChangeListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if (Main.transparency == 255) {
-					Main.transparency = 1;
-				} else {
-					Main.transparency = 255;
+			public void stateChanged(ChangeEvent e) {
+				JSlider source = (JSlider)e.getSource();
+				if (!source.getValueIsAdjusting()) {
+					Main.eyeSize = (int)source.getValue();
+					Eye.updateSize();
+					
 				}
+				
 			}
-
+			
 		};
-		eyeTransp.addActionListener(transpAl);
+		
+		scaleEye.addChangeListener(scaleEyeAl);
+		
 		ActionListener anziehungAl = new ActionListener() {
 
 			@Override
@@ -70,7 +71,7 @@ public class Options extends JFrame {
 			}
 			
 		};
-		anziehung.addActionListener(anziehungAl);
+		
 		ActionListener abstoﬂungAl = new ActionListener() {
 
 			@Override
@@ -79,7 +80,7 @@ public class Options extends JFrame {
 			}
 			
 		};
-		abstoﬂung.addActionListener(abstoﬂungAl);
+		
 		ActionListener exitAl = new ActionListener() {
 
 			@Override
@@ -89,16 +90,16 @@ public class Options extends JFrame {
 			
 		};
 		exit.addActionListener(exitAl);
-		optionP.add(abstoﬂung);
-		optionP.add(anziehung);
-		optionP.add(eyeTransp);
+		
 		optionP.add(exit);
+		optionP.add(scaleEye);
 		
 		content.add(optionP);
 	}
 
 	public static void visibleOpt() {
 		if (!optF.isShowing()) {
+			optF.setLocation((int)Main.windowX, (int)Main.windowY-optF.getSize().height);
 			optF.setVisible(true);
 		} else {
 			optF.setVisible(false);
@@ -145,7 +146,6 @@ public class Options extends JFrame {
 
 		@Override
 		public void windowOpened(WindowEvent e) {
-			// TODO Auto-generated method stub
 			
 		}
 		

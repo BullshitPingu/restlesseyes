@@ -42,10 +42,10 @@ public class Pupil extends JPanel {
 
 	protected void paintComponent(Graphics gPupil) {
 		super.paintComponent(gPupil);
+		Graphics2D pupil = (Graphics2D)gPupil;
+		pupil.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		pupil.setColor(new Color(0, 0, 0, 255)); //Farbe der Pupille
 		for (int i = 0; i < anzahl; i++) {
-			Graphics2D pupil = (Graphics2D)gPupil;
-			pupil.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			pupil.setColor(new Color(0, 0, 0, 255)); //Farbe der Pupille
 			pupil.fillOval((getEyePos(Eye.abstand + (Eye.width/2) + (i*Eye.width), 'x')) - Main.pupillenSize/2+1, (getEyePos(Eye.abstand + (Eye.width/2) + (i*Eye.width), 'y')) - Main.pupillenSize/2+1, Main.pupillenSize, Main.pupillenSize); //Zeichne die Pupille
 		}
 	}
