@@ -1,0 +1,37 @@
+plugins {
+    id 'application'
+    id 'java'
+    id "com.palantir.graal" version "0.7.2"
+    id "org.beryx.jlink" version "2.22.3"
+}
+
+mainClassName = 'de.be.restlesseyes.Main'
+
+group = 'de.be.restlesseyes'
+version = '0.0.1'
+sourceCompatibility = '15'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+}
+
+jlink {
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    launcher {
+        name = 'restlesseyes'
+    }
+}
+
+graal {
+    javaVersion '11'
+    graalVersion '20.3.0'
+
+    mainClass 'de.be.restlesseyes.Main'
+    outputName 'restlesseyes'
+
+    windowsVsVarsPath 'C:/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/VC/Auxiliary/Build/vcvars64.bat'
+}
